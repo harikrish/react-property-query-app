@@ -8,7 +8,7 @@ export default class SearchResult extends Component {
 	    <table className="table table-bordered">
 		<thead>
 		    <tr>
-			<th>{i18nStrings.propertyValue}</th>
+			<th>{this.props.propertyName}</th>
 			<th>{i18nStrings.locale}</th>
 		    </tr>
 		</thead>
@@ -24,15 +24,41 @@ export default class SearchResult extends Component {
 	if(!propertyName) {
 	    return;
 	}
-	return locales.map((locale, index) => {
+
+
+
+	
+	let newLocales = locales.map((locale, index) => {
 	    let delimiterJSON = require('json!../data/' + locale + '/delimiters.json');
 	    let propertyValue = delimiterJSON.main[locale].delimiters[propertyName];
+
+	    return {
+		propertyValue: propertyValue,
+		locale: locale
+	    };
+
+	});
+
+	newLocales = newLocales.reduce((previous, current, index, thisArray) => {
+	    let filteredArray = previous.filter((item, i, previousArray) => {
+		return (item.propertyValue === current.propertyValue);
+	    });
+	    
+	    if(filteredArray.length > 0) {
+		filteredArray[0].locale = filteredArray[0].locale + ' ' + current.locale;
+	    } else {
+		previous.push(current);
+	    }
+	    return previous;
+	}, []);
+
+	return newLocales.map((item, index) => {
 	    return (
 		<tr key={index}>
-		    <td>{propertyValue}</td>
-		    <td>{locale}</td>
+		    <td>{item.propertyValue}</td>
+		    <td>{item.locale}</td>
 		</tr>
-	    );
+	    );	    
 	});
     }
 }

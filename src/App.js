@@ -13,9 +13,20 @@ export default class PropertySearchApp extends Component {
 
     render() {
 	return (
-	    <div>
-		<SearchInput onClickGo={this._handleOnClickGo}/>
-		<SearchResult propertyName={this.state.propertyName}/>
+	    <div className="container">
+		<div className="row">
+		    <div className="col-xs-6">
+			<SearchInput onClickGo={this._handleOnClickGo}/>
+		    </div>
+		</div>
+		<br/>
+		<div className="row">
+		    <div className="col-xs-12">
+			{this.state.propertyName?
+			 <SearchResult propertyName={this.state.propertyName}/>:
+			 null}
+		    </div>
+		</div>
 	    </div>
 	);
     }
