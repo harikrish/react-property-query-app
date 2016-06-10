@@ -1,6 +1,9 @@
 let locales = [
     'en',
-    'ar'
+    'ar',
+    'de',
+    'fr',
+    'it'
 ];
 
 export default locales;

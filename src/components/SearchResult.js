@@ -4,7 +4,6 @@ import locales from '../constants/locales';
 
 export default class SearchResult extends Component {
     render() {
-	this._search();
 	return (
 	    <table className="table table-bordered">
 		<thead>
@@ -14,19 +13,26 @@ export default class SearchResult extends Component {
 		    </tr>
 		</thead>
 		<tbody>
-		    <tr>
-			<td>abcd</td>
-			<td>en</td>
-		    </tr>
+		    {this._search()}
 		</tbody>
 	    </table>
 	);
     }
 
     _search() {
-	for(let i = 0 ; i < locales.length ; i++) {
-	    let delimiterJSON = require('json!../data/' + locales[i] + '/delimiters.json');
-	    console.log('delimiterJSON', delimiterJSON);
+	let propertyName = this.props.propertyName;
+	if(!propertyName) {
+	    return;
 	}
+	return locales.map((locale, index) => {
+	    let delimiterJSON = require('json!../data/' + locale + '/delimiters.json');
+	    let propertyValue = delimiterJSON.main[locale].delimiters[propertyName];
+	    return (
+		<tr key={index}>
+		    <td>{propertyValue}</td>
+		    <td>{locale}</td>
+		</tr>
+	    );
+	});
     }
 }
