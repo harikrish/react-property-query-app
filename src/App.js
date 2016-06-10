@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import SearchInput from './components/SearchInput';
+import SearchResult from './components/SearchResult';
 
 export default class PropertySearchApp extends Component {
     constructor(props) {
@@ -8,10 +9,10 @@ export default class PropertySearchApp extends Component {
     }
 
     render() {
-	console.log('here');
 	return (
 	    <div>
 		<SearchInput/>
+		<SearchResult/>
 	    </div>
 	);
     }
