@@ -25,6 +25,9 @@ export default class SearchInput extends Component {
     }
 
     _handleOnClickGo(e) {
-	this.props.onClickGo(this.refs.searchInput.value);
+	let searchInputValue = this.refs.searchInput.value;
+	if(searchInputValue) {
+	    this.props.onClickGo(searchInputValue);
+	}
     }
 }

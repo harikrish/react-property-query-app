@@ -22,8 +22,8 @@ export default class PropertySearchApp extends Component {
 		<br/>
 		<div className="row">
 		    <div className="col-xs-12">
-			{this.state.propertyName?
-			 <SearchResult propertyName={this.state.propertyName}/>:
+			{this.state.propertyNames && this.state.propertyNames.length > 0?
+			 <SearchResult propertyNames={this.state.propertyNames}/>:
 			 null}
 		    </div>
 		</div>
@@ -31,7 +31,7 @@ export default class PropertySearchApp extends Component {
 	);
     }
 
-    _handleOnClickGo(propertyName) {
-	this.setState({propertyName: propertyName});
+    _handleOnClickGo(propertyNames) {
+	this.setState({propertyNames: propertyNames.split(',')});
     }
 }
